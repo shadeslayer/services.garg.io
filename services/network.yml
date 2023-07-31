@@ -1,0 +1,7 @@
+networks:
+  vlan:
+    driver: dhcp
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
