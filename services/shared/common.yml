@@ -1,0 +1,9 @@
+services:
+    app:
+      network_mode: host
+      volumes:
+        - "${DATA_DIR}:/data"
+      environment:
+        - PUID=1000
+        - PGID=1000
+      restart: unless-stopped

@@ -1,0 +1,24 @@
+services:
+  letsencrypt:
+    image: linuxserver/swag:latest
+    hostname: letsencrypt
+    container_name: letsencrypt
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      - "${CONFIG_DIR}/letsencrypt:/config"
+    depends_on:
+      - plex
+      - overseerr
+      - radarr
+      - sonarr
+      - prowlarr
+      - syncthing
+    environment:
+      - EMAIL=$EMAIL
+      - URL=$DOMAIN
+      - SUBDOMAINS=$SUBDOMAINS
+      - DNSPLUGIN=gandi
+      - ONLY_SUBDOMAINS=true
+      - VALIDATION=http
