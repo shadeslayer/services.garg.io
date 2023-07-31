@@ -1,0 +1,11 @@
+services:
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    hostname: prowlarr
+    container_name: prowlarr
+    extends:
+      file: shared/common.yml
+      service: app
+    network_mode: service:vpn
+    volumes:
+      - "${CONFIG_DIR}/prowlarr:/config"

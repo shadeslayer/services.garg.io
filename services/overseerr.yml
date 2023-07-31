@@ -1,0 +1,10 @@
+services:
+  overseerr:
+    image: linuxserver/overseerr:latest
+    hostname: overseerr
+    container_name: overseerr
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      - "${CONFIG_DIR}/overseerr:/config"

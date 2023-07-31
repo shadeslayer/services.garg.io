@@ -1,0 +1,15 @@
+services:
+  transmission:
+    image: linuxserver/transmission:latest
+    hostname: transmission
+    container_name: transmission
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      # cache on the ssd
+      - /home/nuc/cache:/cache
+      - "${CONFIG_DIR}/transmission:/config"
+    environment:
+      - USER=$USERNAME
+      - PASS=$PASSWORD
