@@ -1,0 +1,17 @@
+services:
+  adguard:
+    image: adguard/adguardhome:latest
+    # hostname: prowlarr
+    container_name: adguard
+    extends:
+      file: shared/common.yml
+      service: app
+    network_mode: bridge
+    ports:
+      - 53:53
+      - 67:67
+      - 80:80
+      # DNS over TLS
+      - 853:853/tcp
+    volumes:
+      - "${CONFIG_DIR}/adguard:/config"
