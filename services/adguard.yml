@@ -1,0 +1,11 @@
+services:
+  adguard:
+    image: adguard/adguardhome:latest
+    hostname: adguard
+    container_name: adguard
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      - "${CONFIG_DIR}/adguard:/opt/adguardhome/conf"
+      - "${DATA_DIR}/adguard:/opt/adguardhome/work"

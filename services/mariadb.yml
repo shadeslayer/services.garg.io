@@ -1,0 +1,14 @@
+services:
+  mariadb:
+    image: linuxserver/mariadb
+    hostname: mariadb
+    container_name: mariadb
+    extends:
+      file: shared/common.yml
+      service: app
+    network_mode: bridge
+    environment:
+      - MYSQL_ROOT_PASSWORD=$PASSWORD
+    volumes:
+      - "${CONFIG_DIR}/mariadb:/config"
+      - "${DATA_DIR}/mariadb:/data"

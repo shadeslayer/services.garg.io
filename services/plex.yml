@@ -1,0 +1,23 @@
+services:
+  plex:
+    image: linuxserver/plex:latest
+    hostname: plex
+    container_name: plex
+    extends:
+      file: shared/common.yml
+      service: app
+    network_mode: bridge
+    volumes:
+      - "${CONFIG_DIR}/plex:/config"
+    devices:
+      - /dev/dri:/dev/dri
+    ports:
+      - 32400:32400
+      - 1900:1900/udp
+      - 5353:5353/udp
+      - 8324:8324
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+      - 32469:32469

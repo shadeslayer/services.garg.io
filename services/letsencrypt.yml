@@ -1,0 +1,27 @@
+services:
+  letsencrypt:
+    image: linuxserver/swag:latest
+    hostname: letsencrypt
+    container_name: letsencrypt
+    extends:
+      file: shared/common.yml
+      service: app
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - "${CONFIG_DIR}/letsencrypt:/config"
+    depends_on:
+      - plex
+      - overseerr
+      - radarr
+      - sonarr
+      - prowlarr
+      - nextcloud
+    environment:
+      - EMAIL=$EMAIL
+      - URL=$DOMAIN
+      - SUBDOMAINS=$SUBDOMAINS
+      - DNSPLUGIN=gandi
+      - ONLY_SUBDOMAINS=true
+      - VALIDATION=http
+      - DOCKER_MODS=linuxserver/mods:swag-dashboard

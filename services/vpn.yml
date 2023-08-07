@@ -1,0 +1,32 @@
+services:
+ vpn:
+    container_name: vpn
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - vpn
+    ports:
+      # http proxy
+      - 8888:8888/tcp
+      # prowlarr
+      - 9696:9696
+      - 9696:9696/udp
+      - 8388:8388/tcp # Shadowsocks
+      - 8388:8388/udp # Shadowsocks
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - OPENVPN_USER=$OPENVPN_USER
+      - OPENVPN_PASSWORD=$OPENVPN_PASSWORD
+      - SERVER_COUNTRIES=Netherlands
+      - FREE_ONLY=on
+      - HTTPPROXY=on
+      - HTTPPROXY_LOG=on
+      - SHADOWSOCKS=on
+      - SHADOWSOCKS_LOG=on
+      - HTTPPROXY_STEALTH=on
+networks:
+  vpn:
+    external: false
