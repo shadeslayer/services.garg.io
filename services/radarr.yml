@@ -1,0 +1,12 @@
+services:
+  radarr:
+    image: linuxserver/radarr:latest
+    hostname: radarr
+    container_name: radarr
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      - "${CONFIG_DIR}/radarr:/config"
+    labels:
+      - swag=enable

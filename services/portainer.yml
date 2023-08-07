@@ -1,0 +1,16 @@
+services:
+  portainer:
+    image: portainer/portainer-ee:latest
+    hostname: portainer
+    container_name: portainer
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - swag=enable
+      - swag_port=9000
+    environment:
+            - VIRTUAL_HOST=portainer.garg.io
+            - VIRTUAL_PORT=9000

@@ -1,0 +1,43 @@
+services:
+  dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy
+    container_name: dockerproxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=1
+      - POST=0
+    restart: unless-stopped
+
+  letsencrypt:
+    image: linuxserver/swag:latest
+    container_name: letsencrypt
+    extends:
+      file: shared/common.yml
+      service: app
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - "${CONFIG_DIR}/letsencrypt:/config"
+    depends_on:
+      - plex
+      - overseerr
+      - radarr
+      - sonarr
+      - prowlarr
+      - nextcloud
+    extra_hosts:
+      - $DOMAIN:127.0.0.1
+    environment:
+      - URL=$DOMAIN
+      - SUBDOMAINS=$SUBDOMAINS
+      - DNSPLUGIN=cloudflare
+      - VALIDATION=dns
+      - DOCKER_MODS=linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:universal-cloudflared
+      - CF_ZONE_ID=$CF_ZONE_ID
+      - CF_ACCOUNT_ID=$CF_ACCOUNT_ID
+      - CF_API_TOKEN=$CF_API_TOKEN
+      - CF_TUNNEL_NAME=$CF_TUNNEL_NAME
+      - CF_TUNNEL_PASSWORD=$CF_TUNNEL_PASSWORD
+      - FILE__CF_TUNNEL_CONFIG=/config/cloudflared/tunnelconfig.yml
+      - DOCKER_HOST=dockerproxy

@@ -1,0 +1,19 @@
+services:
+  transmission:
+    image: linuxserver/transmission:latest
+    container_name: transmission
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      # cache on the ssd
+      - /home/nuc/cache:/cache
+      - "${CONFIG_DIR}/transmission:/config"
+      - /tmp/gluetun/:/tmp/gluetun/:ro
+    environment:
+      - DOCKER_MODS=linuxserver/mods:transmission-transmissionic
+      - FILE__PEERPORT=/tmp/gluetun/forwarded_port
+    labels:
+      - swag=enable
+      - swag_address=proxy
+    network_mode: "service:proxy"

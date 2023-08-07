@@ -1,0 +1,15 @@
+---
+version: "2.1"
+services:
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      - "${CONFIG_DIR}/tautulli:/config"
+    labels:
+      - swag=enable
+    restart: unless-stopped

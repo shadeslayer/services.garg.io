@@ -1,0 +1,17 @@
+services:
+  nextcloud:
+    image: linuxserver/nextcloud:latest
+    hostname: nextcloud
+    container_name: nextcloud
+    extends:
+      file: shared/common.yml
+      service: app
+    depends_on:
+      - mariadb
+    links:
+      - mariadb
+    volumes:
+      - "${CONFIG_DIR}/nextcloud:/config"
+      - "${DATA_DIR}/nextcloud:/data"
+    labels:
+      - swag=enable

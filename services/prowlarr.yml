@@ -1,0 +1,12 @@
+services:
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    hostname: prowlarr
+    container_name: prowlarr
+    extends:
+      file: shared/common.yml
+      service: app
+    volumes:
+      - "${CONFIG_DIR}/prowlarr:/config"
+    labels:
+      - swag=enable
