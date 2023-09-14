@@ -1,19 +1,15 @@
 services:
- vpn:
-    container_name: vpn
+  proxy:
+    container_name: proxy
+    hostname: proxy
     image: qmcgaw/gluetun
     cap_add:
       - NET_ADMIN
-    networks:
-      - vpn
+    devices:
+      - /dev/net/tun:/dev/net/tun
     ports:
-      # http proxy
-      - 8888:8888/tcp
-      # prowlarr
-      - 9696:9696
-      - 9696:9696/udp
-      - 8388:8388/tcp # Shadowsocks
-      - 8388:8388/udp # Shadowsocks
+      - 8888:8888/tcp # http proxy
+      - 9091:9091
     environment:
       - PUID=1000
       - PGID=1000
@@ -24,9 +20,9 @@ services:
       - FREE_ONLY=on
       - HTTPPROXY=on
       - HTTPPROXY_LOG=on
-      - SHADOWSOCKS=on
-      - SHADOWSOCKS_LOG=on
       - HTTPPROXY_STEALTH=on
-networks:
-  vpn:
-    external: false
+      - HTTPPROXY_USER=$USERNAME
+      - HTTPPROXY_PASSWORD=$PASSWORD
+    labels:
+      - swag=enable
+      - swag_port=9091

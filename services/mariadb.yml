@@ -6,7 +6,6 @@ services:
     extends:
       file: shared/common.yml
       service: app
-    network_mode: bridge
     environment:
       - MYSQL_ROOT_PASSWORD=$PASSWORD
     volumes:

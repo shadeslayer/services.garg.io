@@ -1,7 +1,6 @@
 services:
   transmission:
     image: linuxserver/transmission:latest
-    hostname: transmission
     container_name: transmission
     extends:
       file: shared/common.yml
@@ -13,5 +12,8 @@ services:
     environment:
       - USER=$USERNAME
       - PASS=$PASSWORD
-      - CURLOPT_PROXY=$HTTP_PROXY
-      - DOCKER_MODS=linuxserver/mods:transmission-floodui
+      - DOCKER_MODS=linuxserver/mods:transmission-transmissionic
+    labels:
+      - swag=enable
+      - swag_address=proxy
+    network_mode: "service:proxy"

@@ -8,3 +8,5 @@ services:
       service: app
     volumes:
       - "${CONFIG_DIR}/overseerr:/config"
+    labels:
+      - swag=enable

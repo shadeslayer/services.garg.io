@@ -8,3 +8,5 @@ services:
       service: app
     volumes:
       - "${CONFIG_DIR}/radarr:/config"
+    labels:
+      - swag=enable

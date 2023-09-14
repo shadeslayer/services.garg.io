@@ -6,7 +6,6 @@ services:
     extends:
       file: shared/common.yml
       service: app
-    network_mode: bridge
     depends_on:
       - mariadb
     links:
@@ -14,5 +13,5 @@ services:
     volumes:
       - "${CONFIG_DIR}/nextcloud:/config"
       - "${DATA_DIR}/nextcloud:/data"
-    ports:
-      - 444:443
+    labels:
+      - swag=enable
