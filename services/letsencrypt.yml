@@ -33,7 +33,7 @@ services:
       - SUBDOMAINS=$SUBDOMAINS
       - DNSPLUGIN=cloudflare
       - VALIDATION=dns
-      - DOCKER_MODS=linuxserver/mods:swag-dashboard|linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:universal-cloudflared
+      - DOCKER_MODS=linuxserver/mods:universal-docker|linuxserver/mods:swag-auto-proxy|linuxserver/mods:swag-auto-reload|linuxserver/mods:swag-cloudflare-real-ip|linuxserver/mods:universal-cloudflared
       - CF_ZONE_ID=$CF_ZONE_ID
       - CF_ACCOUNT_ID=$CF_ACCOUNT_ID
       - CF_API_TOKEN=$CF_API_TOKEN
