@@ -1,4 +1,14 @@
 services:
+  dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy
+    container_name: dockerproxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=1
+      - POST=0
+    restart: unless-stopped
+
   letsencrypt:
     image: linuxserver/swag:latest
     container_name: letsencrypt
@@ -9,7 +19,6 @@ services:
       - NET_ADMIN
     volumes:
       - "${CONFIG_DIR}/letsencrypt:/config"
-      - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
       - plex
       - overseerr
@@ -31,3 +40,4 @@ services:
       - CF_TUNNEL_NAME=$CF_TUNNEL_NAME
       - CF_TUNNEL_PASSWORD=$CF_TUNNEL_PASSWORD
       - FILE__CF_TUNNEL_CONFIG=/config/cloudflared/tunnelconfig.yml
+      - DOCKER_HOST=dockerproxy
